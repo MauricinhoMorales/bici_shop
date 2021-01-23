@@ -8,9 +8,9 @@ export default function Publicaciones() {
       <Head>
         <title>Publicaciones</title>
       </Head>
-      <Flex w="100%" h="100%">
+      <Flex bg="red.500" w="100%" h="100%">
         <Stack flex={1} padding="2em" spacing="0" align="center">
-          <Text> Esta es la Pagina de Publicaciones</Text>
+          <Text textColor="white"> Esta es la Pagina de Publicaciones</Text>
         </Stack>
       </Flex>
     </>

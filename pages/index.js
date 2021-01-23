@@ -7,7 +7,7 @@ export default function Home() {
       <Head>
         <title>Iniciar Sesión</title>
       </Head>
-      <Flex w="100%" h="100%">
+      <Flex bg="blue.500" w="100%" h="100%">
         <Stack flex={1} padding="2em" spacing="0" align="center">
           <Text> Esta es la Pagina de Bienvenida</Text>
         </Stack>
