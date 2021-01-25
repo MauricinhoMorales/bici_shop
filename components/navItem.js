@@ -21,7 +21,7 @@ export default function NavItem({
         <Icon as={icon} w={10} h={10} color="white" />
       </WrapItem>
       <WrapItem textAlign="center">
-        <Text textColor="white">
+        <Text textColor="white" fontWeight="800">
           {title}
         </Text>
       </WrapItem>
