@@ -37,9 +37,9 @@ export default function NavBar() {
   }, [Router]);
 
   return (
-      <Flex w="18em" h="100%">
+      <Flex w="18em" h="100%" bgImage="url('fondo10.png')">
         <Stack spacing="20">
-          <Image src="/logo.png" w="25" h="25"/>
+          <Image src="/logo.png" w="25" h="25" onClick={() => handleSelected('')}/>
           <NavItem
             title="Publicar"
             icon={Edit}

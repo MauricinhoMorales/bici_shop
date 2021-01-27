@@ -25,6 +25,7 @@ const theme = extendTheme({
     '4xl': '36px',
     '5xl': '48px',
     '6xl': '64px',
+    '7x1': '128px'
   },
   fontWeights: {
     normal: 400,

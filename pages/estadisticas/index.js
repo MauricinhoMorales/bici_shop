@@ -27,7 +27,7 @@ export default function Estadisticas() {
       </Head>
       <Flex w="100%" h="100%">
         <Stack flex={1} padding="2em" spacing="0" align="center">
-          <Text fontSize='5xl' fontWeight="1000" fontFamily="inherit" textColor="yellow.500">ESTADISTICAS</Text>
+          <Text fontSize='5xl' fontWeight="1000" fontFamily="inherit" textColor="black">ESTADISTICAS</Text>
           <Center>
             <VStack direction="column" spacing="10px" >
               <Button width={ancho - ancho * 0.2} height={altura - altura * 0.7} bgColor={process.env.COLOR_BOTON} borderRadius="20px" onClick={handleClick}>
