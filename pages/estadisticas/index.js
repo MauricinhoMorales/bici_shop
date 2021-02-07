@@ -30,12 +30,15 @@ export default function Estadisticas() {
           <Text fontSize='5xl' fontWeight="1000" fontFamily="inherit" textColor="black">ESTADISTICAS</Text>
           <Center>
             <VStack direction="column" spacing="10px" >
-              <Button width={ancho - ancho * 0.2} height={altura - altura * 0.7} bgColor={process.env.COLOR_BOTON} borderRadius="20px" onClick={handleClick}>
+              <Button width={ancho * 0.8} height={altura * 0.2} bgColor={process.env.COLOR_BOTON} borderRadius="20px" onClick={handleClick}>
                 <Text fontSize='5xl' fontStyle="italic" fontFamily="fantasy" color={process.env.COLOR_LETRAS_BOTON}>INVENTARIO</Text>
               </Button>
-              <Button width={ancho - ancho * 0.2} height={altura - altura * 0.7} bgColor={process.env.COLOR_BOTON} borderRadius="20px" onClick={handleClick}>
-                <Text fontSize='5xl' fontStyle="italic" fontFamily="fantasy" color={process.env.COLOR_LETRAS_BOTON}>VENDIDAS</Text>
+              <Button width={ancho * 0.8} height={altura * 0.2} bgColor={process.env.COLOR_BOTON} borderRadius="20px" onClick={handleClick}>
+                <Text fontSize='5xl' fontStyle="italic" fontFamily="fantasy" color={process.env.COLOR_LETRAS_BOTON}>VENTAS TOTALES</Text>
               </Button>
+              <Button width={ancho*0.8} height={altura*0.2} bgColor={process.env.COLOR_BOTON} borderRadius="20px" onClick={handleClick}>
+                <Text fontSize='5xl' fontStyle="italic" fontFamily="fantasy" color={process.env.COLOR_LETRAS_BOTON}>TRANSACCIONES</Text>
+                </Button>
             </VStack>
           </Center>
           <Box h="20px" />

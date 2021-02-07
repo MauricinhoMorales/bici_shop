@@ -37,7 +37,7 @@ export default function NavBar() {
   }, [Router]);
 
   return (
-      <Flex w="18em" h="100%" bgImage="url('fondo10.png')">
+      <Flex w="18em" h="100%" bgColor="yellow.500">
         <Stack spacing="20">
           <Image src="/logo.png" w="25" h="25" onClick={() => handleSelected('')}/>
           <NavItem
