@@ -100,8 +100,8 @@ export default function Publicacion_Repuesto() {
                   <FormLabel>PRECIO DE UNA UNIDAD:</FormLabel>
                   <NumberInput 
                     value={precio}
-                    onChange={(value) => setPrecio(value)}
-                    min={1} max={10000} precision={2} step={0.2}>
+                    onChange={(value) => setPrecio(parseFloat(value))}
+                    min={1} max={10000} precision={2} step={0.01}>
                     <NumberInputField />
                     <NumberInputStepper>
                       <NumberIncrementStepper />
@@ -113,7 +113,7 @@ export default function Publicacion_Repuesto() {
                   <FormLabel>CANTIDAD A OFERTAR:</FormLabel>
                   <NumberInput 
                   value={cantidad}
-                  onChange={(value) => setCantidad(value)}
+                  onChange={(value) => setCantidad(parseInt(value))}
                   min={1} max={1000}>
                     <NumberInputField />
                     <NumberInputStepper>

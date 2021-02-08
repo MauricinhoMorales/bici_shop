@@ -27,6 +27,7 @@ export default function Publicacion_Accesorio() {
 
   const [altura, setAltura] = useState("");
   const [ancho, setAncho] = useState("");
+  
   const [tipo, setTipo] = useState("");
   const [nombre, setNombre] = useState("");
   const [precio, setPrecio] = useState(1.00);
@@ -100,8 +101,8 @@ export default function Publicacion_Accesorio() {
                   <FormLabel>PRECIO DE UNA UNIDAD :{precio}</FormLabel>
                   <NumberInput 
                     value={precio}
-                    onChange={(value) => setPrecio(value)}
-                    min={1} max={10000} precision={2} step={0.2}>
+                    onChange={(value) => setPrecio(parseFloat(value))}
+                    min={1} max={10000} precision={2} step={0.01}>
                     <NumberInputField />
                     <NumberInputStepper>
                       <NumberIncrementStepper />
@@ -113,7 +114,7 @@ export default function Publicacion_Accesorio() {
                   <FormLabel>CANTIDAD A OFERTAR: {cantidad}</FormLabel>
                   <NumberInput 
                   value={cantidad}
-                  onChange={(value) => setCantidad(value)}
+                  onChange={(value) => setCantidad(parseInt(value))}
                   min={1} max={1000}>
                     <NumberInputField />
                     <NumberInputStepper>

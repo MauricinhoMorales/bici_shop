@@ -10,7 +10,7 @@ export default function statGeneral() {
   },[]);
 
   return (
-    <Box h="24px" w={ancho-ancho*0.2} bg="blue.200" borderRadius="20px">
+    <Box h="24px" w={ancho*0.8} bg="blue.200" borderRadius="20px">
       <Center>
         <Text fontStyle="italic" fontWeight="1000">Mensaje de la barra inferior: Aqui se colocará la información de interés sobre las Bicicletas</Text>
       </Center>

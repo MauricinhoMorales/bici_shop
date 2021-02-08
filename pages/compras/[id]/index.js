@@ -57,7 +57,7 @@ export default function Compra_Articulo() {
           <Stack direction="column" padding="15px" spacing="10px">
             <Text fontSize='4xl' fontWeight="1000" fontFamily="inherit" textColor="black" alignSelf="center">ARTICULO</Text>
             <Stack direction="row" padding="15px">
-              <Image src="../../bicicleta.png" w={ancho * 0.35} h={altura * 0.35} marginLeft={ancho * 0.05} marginRight={ancho * 0.05} marginTop={altura * 0.05} marginBottom={altura * 0.05} />
+              <Image src="../../bicicleta2.png" w={ancho * 0.35} h={altura * 0.35} marginLeft={ancho * 0.05} marginRight={ancho * 0.05} marginTop={altura * 0.05} marginBottom={altura * 0.05} />
               <Stack w={ancho * 0.4} h={altura * 0.45} padding="15px" spacing="8px" direction="column">
                 <FormControl>
                   <FormLabel>TIPO DE PRODUCTO:</FormLabel>

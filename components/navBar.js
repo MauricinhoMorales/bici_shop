@@ -14,54 +14,41 @@ import NavItem from './navItem.js';
 
 export default function NavBar() {
 
-  const [selectionState, setSelectionState] = useState([
-    true,
-    false,
-    false,
-  ]);
+  
+  const [ancho, setAncho] = useState("");
+  const [altura, setAltura] = useState("");
 
   const Router = useRouter();
+
+  useEffect(() => {
+    setAltura(screen.height);
+    setAncho(screen.width);
+  }, []);
 
   const handleSelected = (route) => {
     Router.replace(`/${route}`);
   };
 
-  useEffect(() => {
-    if (Router.pathname.includes('/publicaciones')) {
-      setSelectionState([true, false, false]);
-    } else if (Router.pathname.includes('/compras')) {
-      setSelectionState([false, true, false]);
-    } else {
-      setSelectionState([false, false, true]);
-    }
-  }, [Router]);
-
   return (
-      <Flex w="18em" h="100%" bgColor="yellow.500">
+      <Flex bg="yellow.500" w={ancho*0.1} h={altura*0.863} justify="center">
         <Stack spacing="20">
           <Image src="/logo.png" w="25" h="25" onClick={() => handleSelected('')}/>
           <NavItem
             title="Publicar"
             icon={Edit}
-            isSelected={selectionState}
             handleSelect={handleSelected}
-            option={0}
             route="publicaciones"
           />
           <NavItem
             title="Comprar"
             icon={ShoppingBag}
-            isSelected={selectionState}
             handleSelect={handleSelected}
-            option={1}
             route="compras"
           />
           <NavItem
             title="Estadisticas"
             icon={BarChart}
-            isSelected={selectionState}
             handleSelect={handleSelected}
-            option={2}
             route="estadisticas"
           />
         </Stack>

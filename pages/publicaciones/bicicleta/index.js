@@ -78,7 +78,7 @@ export default function Publicacion_Bicicleta() {
           <Stack direction="column" padding="15px" spacing="10px">
             <Text fontSize='4xl' fontWeight="1000" fontFamily="inherit" textColor="black" alignSelf="center">BICICLETA</Text>
             <Stack direction="row" padding="15px">
-              <Image src="../../bicicleta.png" w={ancho*0.35} h={altura*0.35} marginLeft={ancho*0.05} marginRight={ancho*0.05} marginTop={altura*0.05} marginBottom={altura*0.05}/>
+              <Image src="../../bicicleta2.png" w={ancho*0.35} h={altura*0.35} marginLeft={ancho*0.05} marginRight={ancho*0.05} marginTop={altura*0.05} marginBottom={altura*0.05}/>
               <Stack w={ancho * 0.4} h={altura * 0.45} padding="15px" spacing="8px" direction="column">
                 <FormControl isRequired>
                   <FormLabel>TIPO DE BICICLETA: {tipo}</FormLabel>
@@ -100,8 +100,8 @@ export default function Publicacion_Bicicleta() {
                   <FormLabel>PRECIO DE UNA UNIDAD :{precio}</FormLabel>
                   <NumberInput 
                     value={precio}
-                    onChange={(value) => setPrecio(value)}
-                    min={1} max={10000} precision={2} step={0.2}>
+                    onChange={(value) => setPrecio(parseFloat(value,10))}
+                    min={1} max={10000} precision={2} step={0.01}>
                     <NumberInputField />
                     <NumberInputStepper>
                       <NumberIncrementStepper />
@@ -113,7 +113,7 @@ export default function Publicacion_Bicicleta() {
                   <FormLabel>CANTIDAD A OFERTAR: {cantidad}</FormLabel>
                   <NumberInput 
                   value={cantidad}
-                  onChange={(value) => setCantidad(value)}
+                  onChange={(value) => setCantidad(parseInt(value,10))}
                   min={1} max={1000}>
                     <NumberInputField />
                     <NumberInputStepper>
