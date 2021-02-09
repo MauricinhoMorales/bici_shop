@@ -39,6 +39,8 @@ export default function Publicacion_Bicicleta() {
   const Router = useRouter();
 
   const handleClick = () => {
+    var MY_TOPIC = 'hello';
+    PubSub.publish(MY_TOPIC, 'world');
     Router.replace('/publicaciones');
   };
 
