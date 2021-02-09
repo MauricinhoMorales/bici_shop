@@ -26,7 +26,7 @@ export default function NavBar() {
   }, []);
 
   const handleSelected = (route) => {
-    Router.replace(`/${route}`);
+    Router.push(`/${route}`);
   };
 
   return (

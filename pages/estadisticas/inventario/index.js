@@ -32,128 +32,28 @@ import { ArrowRight, CheckCircle, XCircle } from 'react-feather'
 
 export default function Estadisticas_Inventario() {
 
-  const lista = [
-    {
-      "codigo": "COD-1",
-      "nombre": "Bicicleta Adidas TERREX",
-      "clase": "Bicicleta",
-      "tipo": "Bicicleta de Montaña",
-      "precio": 20.50,
-      "cantidad": 20,
-      "descripcion": "Descripcion COD-1",
-    },
-    {
-      "codigo": "COD-2",
-      "nombre": "Bicicleta Airbone",
-      "clase": "Bicicleta",
-      "tipo": "Bicicleta Acrobática",
-      "precio": 17.85,
-      "cantidad": 25,
-      "descripcion": "Descripcion COD-2",
-    },
-    {
-      "codigo": "COD-3",
-      "nombre": "Casco MX Ultra",
-      "clase": "Accesorio",
-      "tipo": "Casco",
-      "precio": 5.00,
-      "cantidad": 12,
-      "descripcion": "Descripcion COD-3",
-    },
-    {
-      "codigo": "COD-4",
-      "nombre": "Botella  Adidas Five Ten",
-      "clase": "Accesorio",
-      "tipo": "Termo",
-      "precio": 2.99,
-      "cantidad": 30,
-      "descripcion": "Descripcion COD-4",
-    },
-    {
-      "codigo": "COD-5",
-      "nombre": "Ruedas BBB",
-      "clase": "Repuesto",
-      "tipo": "Ruedas",
-      "precio": 9.99,
-      "cantidad": 30,
-      "descripcion": "Descripcion COD-5",
-    },
-    {
-      "codigo": "COD-6",
-      "nombre": "Bicicleta Acrobática Basso",
-      "clase": "Bicicleta",
-      "tipo": "Bicicleta Acrobática",
-      "precio": 27.50,
-      "cantidad": 5,
-      "descripcion": "Descripcion COD-6",
-    },
-    {
-      "codigo": "COD-7",
-      "nombre": "Bicicleta BioLite",
-      "clase": "Bicicleta",
-      "tipo": "Bicicleta Urbana",
-      "precio": 14.75,
-      "cantidad": 20,
-      "descripcion": "Descripcion COD-7",
-    },
-    {
-      "codigo": "COD-8",
-      "nombre": "Manillas CAMPZ",
-      "clase": "Repuesto",
-      "tipo": "Manilla",
-      "precio": 6.60,
-      "cantidad": 10,
-      "descripcion": "Descripcion COD-8",
-    },
-    {
-      "codigo": "COD-9",
-      "nombre": "Guantes Adidas",
-      "clase": "Accesorio",
-      "tipo": "Guantes",
-      "precio": 4.30,
-      "cantidad": 20,
-      "descripcion": "Descripcion COD-9",
-    },
-    {
-      "codigo": "COD-10",
-      "nombre": "Guantes Centurion",
-      "clase": "Accesorio",
-      "tipo": "Guantes",
-      "precio": 3.00,
-      "cantidad": 35,
-      "descripcion": "Descripcion COD-10",
-    },
-    {
-      "codigo": "COD-11",
-      "nombre": "Frenos Columbia",
-      "clase": "Repuesto",
-      "tipo": "Frenos",
-      "precio": 8.90,
-      "cantidad": 15,
-      "descripcion": "Descripcion COD-11",
-    },
-    {
-      "codigo": "COD-12",
-      "nombre": "Bicicleta AbsoluteBLACK",
-      "clase": "Bicicleta",
-      "tipo": "Bicicleta Acrobática",
-      "precio": 30.00,
-      "cantidad": 7,
-      "descripcion": "Descripcion COD-12",
-    }
-  ]
-
+  const [lista, setLista] = useState([]);
   const [altura, setAltura] = useState("");
   const [ancho, setAncho] = useState("");
 
   const [tiposBicicleta, setTiposBicicleta] = useState(["Bicicleta de Montaña", "Bicicleta Acrobática", "Bicicleta de Ruta", "Bicicleta Híbrida", "Bicicleta Urbana", "Bicicleta de Turismo", "Bicicleta Playera", "Otra"]);
   const [tiposAccesorio, setTiposAccesorio] = useState(["Casco", "Guantes", "Lentes", "Termo", "Rodilleras", "Coderas", "Dispositivos", "Otro"]);
-  const [tiposRepuesto, setTiposRepuesto] = useState(["Ruedas", "Manilla", "Silla", "Cadena","Piñones", "Radios", "Frenos", "Otro"]);
+  const [tiposRepuesto, setTiposRepuesto] = useState(["Rueda", "Manilla", "Silla", "Cadena","Piñones", "Radios", "Frenos", "Otro"]);
   const [TotalBicicletas, setTotalBicicletas] = useState(0);
   const [TotalAccesorios, setTotalAccesorios] = useState(0);
   const [TotalRepuestos, setTotalRepuestos] = useState(0);
 
   const Router = useRouter();
+
+  useEffect(() => {
+    fetch("../inventario.json").then(
+      response => response.json()
+    ).then(
+      datos => {
+        setLista(datos)
+      }
+    )
+  })
 
   useEffect(() => {
     setAltura(screen.height);

@@ -1,6 +1,7 @@
 import { Box, Center, Text, Flex, Stack, Image, Spacer, Button, HStack } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import PubSub from 'pubsub-js';
 
 export default function ItemCompra({
   codigo,
@@ -23,8 +24,8 @@ export default function ItemCompra({
   }, []);
 
   const handleClick = () => {
-    console.log(`Se clickeo el item ${nombre}`)
-    Router.replace(`compras/${codigo}`);
+    PubSub.publish('AbrirCompra',codigo);
+    Router.push(`compras/${codigo}`);
   };
 
   return (

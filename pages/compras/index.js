@@ -1,5 +1,6 @@
 import { color, Flex, Stack, Text, Box, InputGroup, Input, InputRightElement, InputLeftElement, Button, Switch, Icon, Center, Grid, Spacer } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import { useStateIfMounted } from "use-state-if-mounted";
 import { SearchIcon } from '@chakra-ui/icons'
 import Head from 'next/head';
 import ItemCompra from '../../components/ItemCompra';
@@ -9,116 +10,7 @@ export default function Compras() {
 
   var MY_TOPIC = "Hola";
 
-  const [lista, setLista] = useState([
-    {
-      "codigo": "COD-1",
-      "nombre": "Bicicleta Adidas TERREX",
-      "clase": "Bicicleta",
-      "tipo": "Bicicleta de Montaña",
-      "precio": 20.50,
-      "cantidad": 20,
-      "descripcion": "Descripcion COD-1",
-    },
-    {
-      "codigo": "COD-2",
-      "nombre": "Bicicleta Airbone",
-      "clase": "Bicicleta",
-      "tipo": "Bicicleta Acrobática",
-      "precio": 17.85,
-      "cantidad": 25,
-      "descripcion": "Descripcion COD-2",
-    },
-    {
-      "codigo": "COD-3",
-      "nombre": "Casco MX Ultra",
-      "clase": "Accesorio",
-      "tipo": "Casco",
-      "precio": 5.00,
-      "cantidad": 12,
-      "descripcion": "Descripcion COD-3",
-    },
-    {
-      "codigo": "COD-4",
-      "nombre": "Botella  Adidas Five Ten",
-      "clase": "Accesorio",
-      "tipo": "Termo",
-      "precio": 2.99,
-      "cantidad": 30,
-      "descripcion": "Descripcion COD-4",
-    },
-    {
-      "codigo": "COD-5",
-      "nombre": "Ruedas BBB",
-      "clase": "Repuesto",
-      "tipo": "Rueda",
-      "precio": 9.99,
-      "cantidad": 30,
-      "descripcion": "Descripcion COD-5",
-    },
-    {
-      "codigo": "COD-6",
-      "nombre": "Bicicleta Acrobática Basso",
-      "clase": "Bicicleta",
-      "tipo": "Bicicleta Acrobática",
-      "precio": 27.50,
-      "cantidad": 5,
-      "descripcion": "Descripcion COD-6",
-    },
-    {
-      "codigo": "COD-7",
-      "nombre": "Bicicleta BioLite",
-      "clase": "Bicicleta",
-      "tipo": "Bicicleta Urbana",
-      "precio": 14.75,
-      "cantidad": 20,
-      "descripcion": "Descripcion COD-7",
-    },
-    {
-      "codigo": "COD-8",
-      "nombre": "Manillas CAMPZ",
-      "clase": "Repuesto",
-      "tipo": "Manilla",
-      "precio": 6.60,
-      "cantidad": 10,
-      "descripcion": "Descripcion COD-8",
-    },
-    {
-      "codigo": "COD-9",
-      "nombre": "Guantes Adidas",
-      "clase": "Accesorio",
-      "tipo": "Guantes",
-      "precio": 4.30,
-      "cantidad": 20,
-      "descripcion": "Descripcion COD-9",
-    },
-    {
-      "codigo": "COD-10",
-      "nombre": "Guantes Centurion",
-      "clase": "Accesorio",
-      "tipo": "Guantes",
-      "precio": 3.00,
-      "cantidad": 35,
-      "descripcion": "Descripcion COD-10",
-    },
-    {
-      "codigo": "COD-11",
-      "nombre": "Frenos Columbia",
-      "clase": "Repuesto",
-      "tipo": "Frenos",
-      "precio": 8.90,
-      "cantidad": 15,
-      "descripcion": "Descripcion COD-11",
-    },
-    {
-      "codigo": "COD-12",
-      "nombre": "Bicicleta AbsoluteBLACK",
-      "clase": "Bicicleta",
-      "tipo": "Bicicleta Acrobática",
-      "precio": 30.00,
-      "cantidad": 7,
-      "descripcion": "Descripcion COD-12",
-    }
-  ]);
+  const [lista, setLista] = useState([]);
 
   const [ancho, setAncho] = useState("");
   const [altura, setAltura] = useState("");
@@ -129,14 +21,38 @@ export default function Compras() {
   const [repuesto, setRepuesto] = useState("false");
 
   useEffect(() => {
+    fetch("inventario.json").then(
+      response => response.json()
+    ).then(
+      datos => {
+        setLista(datos)
+      }
+    )
+  })
+
+  useEffect(() => {
     setAltura(screen.height);
     setAncho(screen.width);
   }, []);
 
   useEffect(() => {
-    var MY_TOPIC = 'hello';
-    const token = PubSub.subscribe(MY_TOPIC, function (msg, data) {
-      console.log("Hola soy compras");
+    const token = PubSub.subscribe('Publicacion', function (msg, data) {
+      console.log('Hola soy Inventario, Recibi una publicacion:');
+      console.log(msg, data);
+      //AQUI DEBERIA ACTUALIZARSE EL ARCHIVO JSON DE INVENTARIO
+
+      return () => {
+        PubSub.unsubscribe(token);
+      };
+    })
+  }, [])
+
+  useEffect(() => {
+    const token = PubSub.subscribe('Compra', function (msg, data) {
+      console.log('Hola soy Inventario, Recibi una Compras');
+      console.log(msg, data);
+      //AQUI DEBERIA ACTUALIZARSE EL ARCHIVO JSON DE INVENTARIO
+      
       return () => {
         PubSub.unsubscribe(token);
       };
@@ -151,6 +67,17 @@ export default function Compras() {
       <Flex w="100%" h="100%" direction="column">
         <Stack flex={1} padding="2em" spacing="5px" align="center" direction="column">
           <Text fontSize='5xl' fontWeight="1000" fontFamily="inherit" textColor="black">COMPRAR</Text>
+          {/* <Button onClick={() => {
+            setLista([...lista, {
+              "codigo": "COD-13",
+              "nombre": "Bicicleta Nike Solution",
+              "clase": "Bicicleta",
+              "tipo": "Bicicleta de Montaña",
+              "precio": 20.00,
+              "cantidad": 10,
+              "descripcion": "Descripcion COD-13",
+            }]);
+          }}> Clickea </Button> */}
           <Center>
             <InputGroup>
               <InputLeftElement
@@ -180,7 +107,7 @@ export default function Compras() {
           <Grid templateColumns="repeat(2, 1fr)" gap={2}>
             {lista.filter(item => (item.nombre.includes(buscador) || item.tipo.includes(buscador)) &&
               ((item.clase == "Bicicleta" && bicicleta == "true") || (item.clase == "Accesorio" && accesorio == "true") ||
-                (item.clase == "Repuesto" && repuesto == "true") || (bicicleta == "false" && accesorio == "false" && repuesto == "false"))).map((item) => {
+                (item.clase == "Repuesto" && repuesto == "true") || (bicicleta == "false" && accesorio == "false" && repuesto == "false")) && (item.cantidad!=0)).map((item) => {
                   return (
                     <ItemCompra
                       key={item.codigo}

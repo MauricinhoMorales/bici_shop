@@ -12,15 +12,15 @@ export default function Publicaciones() {
   const Router = useRouter();
 
   const handleClickBicicletas = () => {
-    Router.replace('/publicaciones/bicicleta');
+    Router.push('/publicaciones/bicicleta');
   };
 
   const handleClickAccesorios = () => {
-    Router.replace('/publicaciones/accesorio');
+    Router.push('/publicaciones/accesorio');
   };
 
   const handleClickRepuestos = () => {
-    Router.replace('/publicaciones/repuesto');
+    Router.push('/publicaciones/repuesto');
   };
 
   useEffect(() => {

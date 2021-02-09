@@ -17,14 +17,18 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
   NumberInput,
-  Image
+  Image,
+  useToast
 } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import PubSub from 'pubsub-js';
 
 export default function Publicacion_Repuesto() {
 
+  const toast = useToast();
+  const Router = useRouter();
   const [altura, setAltura] = useState("");
   const [ancho, setAncho] = useState("");
   const [tipo, setTipo] = useState("");
@@ -32,14 +36,33 @@ export default function Publicacion_Repuesto() {
   const [precio, setPrecio] = useState(1.00);
   const [cantidad, setCantidad] = useState(1);
   const [descripcion, setDescripcion] = useState("");
-  const [tipos, setTipos] = useState(["Repuesto 1", "Repuesto 2", "Repuesto 3"]);
-  const [obj,setObject] = useState({tipo: "", nombre:"", precio: 1, cantidad: 1, descripcion:""});
-
-  const Router = useRouter();
+  const [tipos, setTipos] = useState(["Ruedas", "Manilla", "Silla", "Cadena", "Piñones", "Radios", "Frenos", "Otro"]);
+  const [obj, setObject] = useState({ tipo: "", nombre: "", precio: 1, cantidad: 1, descripcion: "" });
 
   const handleClick = () => {
-    console.log(obj);
-    Router.replace('/publicaciones');
+    if (nombre == "" || tipo=="" || descripcion=="") {
+      return (
+        toast({
+          title: "Campos inválidos",
+          description: "No se puede proceder con un campo vacío.",
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+        })
+      )
+    } else {
+      PubSub.publish('Publicacion',obj);
+      Router.replace('/publicaciones');
+      return (
+        toast({
+          title: "Repuesto Publicado",
+          description: "Su Repuesto está disponible para su compra",
+          status: "success",
+          duration: 4000,
+          isClosable: true,
+        })
+      );
+    }
   };
 
   useEffect(() => {
@@ -48,23 +71,23 @@ export default function Publicacion_Repuesto() {
   }, []);
 
   useEffect(() => {
-    setObject({ ...obj, tipo: {tipo} })
+    setObject({ ...obj, tipo: { tipo } })
   }, [tipo]);
 
   useEffect(() => {
-    setObject({ ...obj, nombre: {nombre} })
+    setObject({ ...obj, nombre: { nombre } })
   }, [nombre]);
 
-    useEffect(() => {
-    setObject({ ...obj, precio: {precio} })
+  useEffect(() => {
+    setObject({ ...obj, precio: { precio } })
   }, [precio]);
 
   useEffect(() => {
-    setObject({ ...obj, cantidad: {cantidad} })
+    setObject({ ...obj, cantidad: { cantidad } })
   }, [cantidad]);
 
   useEffect(() => {
-    setObject({ ...obj, descripcion: {descripcion} })
+    setObject({ ...obj, descripcion: { descripcion } })
   }, [descripcion]);
 
   return (
@@ -78,7 +101,7 @@ export default function Publicacion_Repuesto() {
           <Stack direction="column" padding="15px" spacing="10px">
             <Text fontSize='4xl' fontWeight="1000" fontFamily="inherit" textColor="black" alignSelf="center">REPUESTO</Text>
             <Stack direction="row" padding="15px">
-              <Image src="../../repuesto.png"  w={ancho*0.25} h={altura*0.35} marginLeft={ancho*0.1} marginRight={ancho*0.1} marginTop={altura*0.05} marginBottom={altura*0.05}/>
+              <Image src="../../repuesto.png" w={ancho * 0.25} h={altura * 0.35} marginLeft={ancho * 0.1} marginRight={ancho * 0.1} marginTop={altura * 0.05} marginBottom={altura * 0.05} />
               <Stack w={ancho * 0.4} h={altura * 0.45} padding="15px" spacing="8px" direction="column">
                 <FormControl isRequired>
                   <FormLabel>TIPO DE REPUESTO:</FormLabel>
@@ -92,13 +115,13 @@ export default function Publicacion_Repuesto() {
                 </FormControl>
                 <FormControl isRequired>
                   <FormLabel>NOMBRE DEL PRODUCTO:</FormLabel>
-                  <Input 
+                  <Input
                     value={nombre}
-                    onChange={(value) => setNombre(value.target.value)}/>
+                    onChange={(value) => setNombre(value.target.value)} />
                 </FormControl>
                 <FormControl isRequired>
                   <FormLabel>PRECIO DE UNA UNIDAD:</FormLabel>
-                  <NumberInput 
+                  <NumberInput
                     value={precio}
                     onChange={(value) => setPrecio(parseFloat(value))}
                     min={1} max={10000} precision={2} step={0.01}>
@@ -111,10 +134,10 @@ export default function Publicacion_Repuesto() {
                 </FormControl>
                 <FormControl isRequired>
                   <FormLabel>CANTIDAD A OFERTAR:</FormLabel>
-                  <NumberInput 
-                  value={cantidad}
-                  onChange={(value) => setCantidad(parseInt(value))}
-                  min={1} max={1000}>
+                  <NumberInput
+                    value={cantidad}
+                    onChange={(value) => setCantidad(parseInt(value))}
+                    min={1} max={1000}>
                     <NumberInputField />
                     <NumberInputStepper>
                       <NumberIncrementStepper />
@@ -125,9 +148,9 @@ export default function Publicacion_Repuesto() {
               </Stack>
             </Stack>
             <FormControl isRequired>
-              <FormLabel>DESCRIPCIÓN DEL PRODUCTO:{descripcion}</FormLabel>
+              <FormLabel>DESCRIPCIÓN DEL PRODUCTO:</FormLabel>
               <Input value={descripcion}
-                    onChange={(value) => setDescripcion(value.target.value)}/>
+                onChange={(value) => setDescripcion(value.target.value)} />
             </FormControl>
             <Center>
               <Button width={ancho * 0.2} height={altura * 0.05} bgColor="yellow.500" borderRadius="20px" onClick={handleClick}>

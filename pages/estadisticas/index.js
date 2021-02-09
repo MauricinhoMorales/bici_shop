@@ -12,15 +12,15 @@ export default function Estadisticas() {
   const Router = useRouter();
 
   const handleClickInventario = () => {
-    Router.replace('/estadisticas/inventario');
+    Router.push('/estadisticas/inventario');
   };
 
   const handleClickVentas = () => {
-    Router.replace('/estadisticas/ventas');
+    Router.push('/estadisticas/ventas');
   };
 
   const handleClickTransacciones = () => {
-    Router.replace('/estadisticas/transacciones');
+    Router.push('/estadisticas/transacciones');
   };
 
   useEffect(() => {

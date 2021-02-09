@@ -1,0 +1,82 @@
+[
+  {
+    "accion": "Publicar",
+    "codigo": "COD-1",
+    "nombre": "Bicicleta Adidas TERREX",
+    "clase": "Bicicleta",
+    "tipo": "Bicicleta de Montaña",
+    "precio": 20.50,
+    "cantidad": 20,
+    "descripcion": "Descripcion COD-1"
+  },
+  {
+    "accion": "Publicar",
+    "codigo": "COD-2",
+    "nombre": "Bicicleta Airbone",
+    "clase": "Bicicleta",
+    "tipo": "Bicicleta Acrobática",
+    "precio": 17.85,
+    "cantidad": 25,
+    "descripcion": "Descripcion COD-2"
+  },
+  {
+    "accion": "Comprar",
+    "codigo": "COD-3",
+    "nombre": "Casco MX Ultra",
+    "clase": "Accesorio",
+    "tipo": "Casco",
+    "precio": 5.00,
+    "cantidad": 12,
+    "descripcion": "Descripcion COD-3"
+  },
+  {
+    "accion": "Publicar",
+    "codigo": "COD-4",
+    "nombre": "Botella  Adidas Five Ten",
+    "clase": "Accesorio",
+    "tipo": "Termo",
+    "precio": 2.99,
+    "cantidad": 30,
+    "descripcion": "Descripcion COD-4"
+  },
+  {
+    "accion": "Comprar",
+    "codigo": "COD-5",
+    "nombre": "Ruedas BBB",
+    "clase": "Repuesto",
+    "tipo": "Rueda",
+    "precio": 9.99,
+    "cantidad": 30,
+    "descripcion": "Descripcion COD-5"
+  },
+  {
+    "accion": "Publicar",
+    "codigo": "COD-6",
+    "nombre": "Bicicleta Acrobática Basso",
+    "clase": "Bicicleta",
+    "tipo": "Bicicleta Acrobática",
+    "precio": 27.50,
+    "cantidad": 5,
+    "descripcion": "Descripcion COD-6"
+  },
+  {
+    "accion": "Publicar",
+    "codigo": "COD-7",
+    "nombre": "Bicicleta BioLite",
+    "clase": "Bicicleta",
+    "tipo": "Bicicleta Urbana",
+    "precio": 14.75,
+    "cantidad": 20,
+    "descripcion": "Descripcion COD-7"
+  },
+  {
+    "accion": "Comprar",
+    "codigo": "COD-8",
+    "nombre": "Manillas CAMPZ",
+    "clase": "Repuesto",
+    "tipo": "Manilla",
+    "precio": 6.60,
+    "cantidad": 10,
+    "descripcion": "Descripcion COD-8"
+  }
+]

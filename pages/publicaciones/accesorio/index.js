@@ -17,14 +17,17 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
   NumberInput,
-  Image
+  Image,
+  useToast
 } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import PubSub from 'pubsub-js';
 
 export default function Publicacion_Accesorio() {
 
+  const toast = useToast();
   const [altura, setAltura] = useState("");
   const [ancho, setAncho] = useState("");
   
@@ -33,14 +36,35 @@ export default function Publicacion_Accesorio() {
   const [precio, setPrecio] = useState(1.00);
   const [cantidad, setCantidad] = useState(1);
   const [descripcion, setDescripcion] = useState("");
-  const [tipos, setTipos] = useState(["Accesorio 1", "Accesorio 2", "Accesorio 3"]);
+  const [tipos, setTipos] = useState(["Casco", "Guantes", "Lentes", "Termo", "Rodilleras", "Coderas", "Dispositivos", "Otro"]);
   const [obj,setObject] = useState({tipo: "", nombre:"", precio: 1, cantidad: 1, descripcion:""});
 
   const Router = useRouter();
 
   const handleClick = () => {
-    console.log(obj);
-    Router.replace('/publicaciones');
+    if (nombre == "" || tipo=="" || descripcion=="") {
+      return (
+        toast({
+          title: "Campos inválidos",
+          description: "No se puede proceder con un campo vacío.",
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+        })
+      )
+    } else {
+      PubSub.publish('Publicacion',obj);
+      Router.replace('/publicaciones');
+      return (
+        toast({
+          title: "Accesorio Publicado",
+          description: "Su Accesorio está disponible para su compra",
+          status: "success",
+          duration: 4000,
+          isClosable: true,
+        })
+      );
+    }
   };
 
   useEffect(() => {
@@ -82,7 +106,7 @@ export default function Publicacion_Accesorio() {
               <Image src="../../accesorio.png" w={ancho*0.25} h={altura*0.35} marginLeft={ancho*0.1} marginRight={ancho*0.1} marginTop={altura*0.05} marginBottom={altura*0.05}/>
               <Stack w={ancho * 0.4} h={altura * 0.45} padding="15px" spacing="8px" direction="column">
                 <FormControl isRequired>
-                  <FormLabel>TIPO DE ACCESORIO: {tipo}</FormLabel>
+                  <FormLabel>TIPO DE ACCESORIO:</FormLabel>
                   <Select value={tipo} onChange={(value) => setTipo(value.target.value)} placeholder="Selecciona el Tipo de ACCESORIO">
                     {tipos.map((item) => {
                       return (
@@ -92,13 +116,13 @@ export default function Publicacion_Accesorio() {
                   </Select>
                 </FormControl>
                 <FormControl isRequired>
-                  <FormLabel>NOMBRE DEL PRODUCTO: {nombre}</FormLabel>
+                  <FormLabel>NOMBRE DEL PRODUCTO:</FormLabel>
                   <Input 
                     value={nombre}
                     onChange={(value) => setNombre(value.target.value)}/>
                 </FormControl>
                 <FormControl isRequired>
-                  <FormLabel>PRECIO DE UNA UNIDAD :{precio}</FormLabel>
+                  <FormLabel>PRECIO DE UNA UNIDAD:</FormLabel>
                   <NumberInput 
                     value={precio}
                     onChange={(value) => setPrecio(parseFloat(value))}
@@ -111,7 +135,7 @@ export default function Publicacion_Accesorio() {
                   </NumberInput>
                 </FormControl>
                 <FormControl isRequired>
-                  <FormLabel>CANTIDAD A OFERTAR: {cantidad}</FormLabel>
+                  <FormLabel>CANTIDAD A OFERTAR:</FormLabel>
                   <NumberInput 
                   value={cantidad}
                   onChange={(value) => setCantidad(parseInt(value))}
@@ -126,7 +150,7 @@ export default function Publicacion_Accesorio() {
               </Stack>
             </Stack>
             <FormControl isRequired>
-              <FormLabel>DESCRIPCIÓN DEL PRODUCTO:{descripcion}</FormLabel>
+              <FormLabel>DESCRIPCIÓN DEL PRODUCTO:</FormLabel>
               <Input value={descripcion}
                     onChange={(value) => setDescripcion(value.target.value)}/>
             </FormControl>

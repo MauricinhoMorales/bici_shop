@@ -17,34 +17,72 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
   NumberInput,
-  Image
+  Image,
+  useToast
 } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import PubSub from 'pubsub-js';
 
 export default function Compra_Articulo() {
 
+  const toast = useToast();
   const [altura, setAltura] = useState("");
   const [ancho, setAncho] = useState("");
 
-  const [tipo, setTipo] = useState("BICICLETA DE MONTAÑA");
-  const [nombre, setNombre] = useState("Bicicleta MX 4 Ultra");
-  const [precio, setPrecio] = useState(14.99);
+  const [tipo, setTipo] = useState("Tipo de Bicicleta");
+  const [nombre, setNombre] = useState("Ejemplo");
+  const [precio, setPrecio] = useState(1.00);
   const [cantidadComprar, setCantidadComprar] = useState(1);
   const [cantidadOfertada, setCantidadOfertada] = useState(15);
-  const [descripcion, setDescripcion] = useState("Bicicleta Montañosa. Rueda de Repuesto. 1 año de garantía");
+  const [descripcion, setDescripcion] = useState("Descripcion predeterminada");
 
   const Router = useRouter();
 
   const handleClick = () => {
-    Router.replace('/compras');
+    if (cantidadComprar>cantidadOfertada) {
+      return (
+        toast({
+          title: "Compra Inválida",
+          description: "El producto ya no esta disponible",
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+        })
+      )
+    } else {
+      PubSub.publish('Compra',nombre);
+      Router.replace('/compras');
+      return (
+        toast({
+          title: "Compra realizada",
+          description: "Se ha realizado la compra exitosamente",
+          status: "success",
+          duration: 4000,
+          isClosable: true,
+        })
+      );
+    }
   };
 
   useEffect(() => {
     setAltura(screen.height);
     setAncho(screen.width);
   }, []);
+
+  useEffect(()=>{
+    const token = PubSub.subscribe('AbrirCompra', function (msg, data) {
+      console.log('Hola soy Compras de Articulo especifico, Recibi una publicacion:');
+      console.log(msg, data);
+      //AQUI DEBERIA ACTUALIZARSE EL ARCHIVO JSON DE INVENTARIO
+
+      // TAMBIEN EL ARCHIVO JSON DE TRANSACCIONES
+      return () => {
+        PubSub.unsubscribe(token);
+      };
+    })
+  },[])
 
   return (
     <>
@@ -91,11 +129,11 @@ export default function Compra_Articulo() {
                 <Stack direction="row">
                 <FormControl>
                   <FormLabel>PRECIO DE UNA UNIDAD:</FormLabel>
-                  <Text fontSize="18px" borderWidth="1px" borderRadius="5px" padding="5px" paddingLeft="15px">{precio}</Text>
+                  <Text fontSize="18px" borderWidth="1px" borderRadius="5px" padding="5px" paddingLeft="15px">{precio} $</Text>
                 </FormControl>
                 <FormControl>
                   <FormLabel>PRECIO TOTAL:</FormLabel>
-                  <Text fontSize="18px" borderWidth="1px" borderRadius="5px" padding="5px" paddingLeft="15px">{precio*cantidadComprar}</Text>
+                  <Text fontSize="18px" borderWidth="1px" borderRadius="5px" padding="5px" paddingLeft="15px">{precio*cantidadComprar} $</Text>
                 </FormControl>
                 </Stack>
 

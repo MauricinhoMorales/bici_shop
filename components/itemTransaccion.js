@@ -30,6 +30,12 @@ export default function ItemCompra({
         {accion == "Publicar" ? (
           <>
             <Icon as={LogIn} color="blue.500" h="22px" w="22px" marginLeft="10px" />
+            {clase === "Bicicleta" ? (
+              <Image src="../bicicleta.png" w="40px" h="40px"padding="5px" />
+            ) : (clase === "Accesorio" ?
+              (<Image src="../accesorio.png" w="40px" h="40px" padding="5px" />) :
+              (<Image src="../repuesto.png" w="40px" h="40px" padding="5px" />)
+              )}
             <Text fontWeight="1000" fontSize="15px" w={ancho * 0.1}>ACCIÓN: {accion}</Text>
             <Text fontWeight="1000" fontSize="15px" w={ancho * 0.2}>NOMBRE: {nombre}</Text>
             <Text fontWeight="1000" fontSize="15px" w={ancho * 0.2}>TIPO: {tipo}</Text>
@@ -39,11 +45,17 @@ export default function ItemCompra({
         ) : (
             <>
               <Icon as={LogOut} color="green.500" h="22px" w="22px" marginLeft="10px" />
+              {clase === "Bicicleta" ? (
+                <Image src="../bicicleta.png" w="40px" h="40px" padding="5px" />
+              ) : (clase === "Accesorio" ?
+                (<Image src="../accesorio.png" w="40px" h="40px" padding="5px" />) :
+                (<Image src="../repuesto.png" w="40px" h="40px" padding="5px" />)
+                )}
               <Text fontWeight="1000" fontSize="15px" w={ancho * 0.1}>ACCIÓN: {accion}</Text>
               <Text fontWeight="1000" fontSize="15px" w={ancho * 0.2}>NOMBRE: {nombre}</Text>
               <Text fontWeight="1000" fontSize="15px" w={ancho * 0.2}>TIPO: {tipo}</Text>
-              <Text fontWeight="1000" fontSize="15px" w={ancho * 0.1}>PRECIO: ${precio}</Text>
-              <Text fontWeight="1000" fontSize="15px" w={ancho * 0.15}>PAGO TOTAL: ${cantidad*precio}</Text>
+              <Text fontWeight="1000" fontSize="15px" w={ancho * 0.1}>PRECIO UD: ${precio}</Text>
+              <Text fontWeight="1000" fontSize="15px" w={ancho * 0.15}>PAGO TOTAL: ${cantidad * precio}</Text>
             </>
           )}
       </HStack>
