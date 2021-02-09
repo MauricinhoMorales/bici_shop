@@ -174,7 +174,7 @@ export default function Estadisticas_Ventas() {
   return (
     <>
       <Head>
-        <title>Inventario</title>
+        <title>Ventas</title>
       </Head>
       <Center w={ancho} h={altura * 0.863} >
         <Box w={ancho * 0.85} h={altura * 0.8} borderRadius="20px" bgColor="white" borderColor="gray.200" border="0px">

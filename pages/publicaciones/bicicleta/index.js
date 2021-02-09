@@ -22,6 +22,7 @@ import {
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import PubSub from 'pubsub-js';
 
 export default function Publicacion_Bicicleta() {
 
@@ -33,12 +34,11 @@ export default function Publicacion_Bicicleta() {
   const [cantidad, setCantidad] = useState(1);
   const [descripcion, setDescripcion] = useState("");
   const [tipos, setTipos] = useState(["Bicicleta de Montaña", "Bicicleta Acrobática", "Bicicleta de Pista"]);
-  const [obj,setObject] = useState({tipo: "", nombre:"", precio: 1, cantidad: 1, descripcion:""});
+  const [obj, setObject] = useState({ tipo: "", nombre: "", precio: 1, cantidad: 1, descripcion: "" });
 
   const Router = useRouter();
 
   const handleClick = () => {
-    console.log(obj);
     Router.replace('/publicaciones');
   };
 
@@ -48,23 +48,23 @@ export default function Publicacion_Bicicleta() {
   }, []);
 
   useEffect(() => {
-    setObject({ ...obj, tipo: {tipo} })
+    setObject({ ...obj, tipo: { tipo } })
   }, [tipo]);
 
   useEffect(() => {
-    setObject({ ...obj, nombre: {nombre} })
+    setObject({ ...obj, nombre: { nombre } })
   }, [nombre]);
 
-    useEffect(() => {
-    setObject({ ...obj, precio: {precio} })
+  useEffect(() => {
+    setObject({ ...obj, precio: { precio } })
   }, [precio]);
 
   useEffect(() => {
-    setObject({ ...obj, cantidad: {cantidad} })
+    setObject({ ...obj, cantidad: { cantidad } })
   }, [cantidad]);
 
   useEffect(() => {
-    setObject({ ...obj, descripcion: {descripcion} })
+    setObject({ ...obj, descripcion: { descripcion } })
   }, [descripcion]);
 
   return (
@@ -73,12 +73,11 @@ export default function Publicacion_Bicicleta() {
         <title>Publicacion Bicicleta</title>
       </Head>
       <Center w={ancho} h={altura * 0.863} >
-
         <Box w={ancho * 0.85} h={altura * 0.8} borderRadius="20px" bgColor="white" borderColor="gray.200" border="0px">
           <Stack direction="column" padding="15px" spacing="10px">
             <Text fontSize='4xl' fontWeight="1000" fontFamily="inherit" textColor="black" alignSelf="center">BICICLETA</Text>
             <Stack direction="row" padding="15px">
-              <Image src="../../bicicleta2.png" w={ancho*0.35} h={altura*0.35} marginLeft={ancho*0.05} marginRight={ancho*0.05} marginTop={altura*0.05} marginBottom={altura*0.05}/>
+              <Image src="../../bicicleta2.png" w={ancho * 0.35} h={altura * 0.35} marginLeft={ancho * 0.05} marginRight={ancho * 0.05} marginTop={altura * 0.05} marginBottom={altura * 0.05} />
               <Stack w={ancho * 0.4} h={altura * 0.45} padding="15px" spacing="8px" direction="column">
                 <FormControl isRequired>
                   <FormLabel>TIPO DE BICICLETA: {tipo}</FormLabel>
@@ -92,15 +91,15 @@ export default function Publicacion_Bicicleta() {
                 </FormControl>
                 <FormControl isRequired>
                   <FormLabel>NOMBRE DEL PRODUCTO: {nombre}</FormLabel>
-                  <Input 
+                  <Input
                     value={nombre}
-                    onChange={(value) => setNombre(value.target.value)}/>
+                    onChange={(value) => setNombre(value.target.value)} />
                 </FormControl>
                 <FormControl isRequired>
                   <FormLabel>PRECIO DE UNA UNIDAD :{precio}</FormLabel>
-                  <NumberInput 
+                  <NumberInput
                     value={precio}
-                    onChange={(value) => setPrecio(parseFloat(value,10))}
+                    onChange={(value) => setPrecio(parseFloat(value, 10))}
                     min={1} max={10000} precision={2} step={0.01}>
                     <NumberInputField />
                     <NumberInputStepper>
@@ -111,10 +110,10 @@ export default function Publicacion_Bicicleta() {
                 </FormControl>
                 <FormControl isRequired>
                   <FormLabel>CANTIDAD A OFERTAR: {cantidad}</FormLabel>
-                  <NumberInput 
-                  value={cantidad}
-                  onChange={(value) => setCantidad(parseInt(value,10))}
-                  min={1} max={1000}>
+                  <NumberInput
+                    value={cantidad}
+                    onChange={(value) => setCantidad(parseInt(value, 10))}
+                    min={1} max={1000}>
                     <NumberInputField />
                     <NumberInputStepper>
                       <NumberIncrementStepper />
@@ -127,7 +126,7 @@ export default function Publicacion_Bicicleta() {
             <FormControl isRequired>
               <FormLabel>DESCRIPCIÓN DEL PRODUCTO:{descripcion}</FormLabel>
               <Input value={descripcion}
-                    onChange={(value) => setDescripcion(value.target.value)}/>
+                onChange={(value) => setDescripcion(value.target.value)} />
             </FormControl>
             <Center>
               <Button width={ancho * 0.2} height={altura * 0.05} bgColor="yellow.500" borderRadius="20px" onClick={handleClick}>
